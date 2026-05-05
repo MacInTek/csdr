@@ -5,7 +5,7 @@
  */
 
 // INCREMENT THIS VERSION NUMBER TO FORCE CACHE INVALIDATION
-const VERSION = '1.0.6';
+const VERSION = '1.0.7';
 const CACHE_NAME = `csdr-v${VERSION}`;
 const RUNTIME_CACHE = `csdr-runtime-${VERSION}`;
 

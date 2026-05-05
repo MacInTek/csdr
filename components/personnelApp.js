@@ -82,7 +82,7 @@ class PersonnelApp extends HTMLElement {
 
               <hr>
               <div class="dark-mode-toggle">
-                <span><i class="fas fa-moon"></i> Dark Mode</span>
+                <span><i id="darkModeIcon" class="fas fa-moon"></i> <span id="darkModeLabel">Dark Mode</span></span>
                 <label class="toggle-switch" aria-label="Toggle dark mode">
                   <input type="checkbox" id="darkModeToggle">
                   <span class="toggle-slider"></span>
@@ -303,16 +303,48 @@ class PersonnelApp extends HTMLElement {
       });
     });
 
-    // Dark mode toggle
+    // ── Dark mode toggle (Brave-safe: localStorage may be blocked on mobile) ──
     const darkToggle = this.querySelector("#darkModeToggle");
+
+    // Safe storage helpers — Brave blocks localStorage in some mobile contexts
+    const _dmRead  = () => { try { return localStorage.getItem("darkMode"); } catch { return null; } };
+    const _dmWrite = (v) => { try { localStorage.setItem("darkMode", v); } catch { /* blocked */ } };
+
+    const darkModeIcon  = this.querySelector("#darkModeIcon");
+    const darkModeLabel = this.querySelector("#darkModeLabel");
     const applyDark = (on) => {
       document.body.classList.toggle("dark-mode", on);
-      localStorage.setItem("darkMode", on ? "1" : "0");
+      _dmWrite(on ? "1" : "0");
       if (darkToggle) darkToggle.checked = on;
+      if (darkModeIcon)  darkModeIcon.className   = on ? "fas fa-sun"   : "fas fa-moon";
+      if (darkModeLabel) darkModeLabel.textContent = on ? "Light Mode" : "Dark Mode";
     };
-    // Restore saved preference
-    applyDark(localStorage.getItem("darkMode") === "1");
+
+    // Restore saved preference; fall back to OS preference if storage is unavailable
+    const _dmSaved = _dmRead();
+    applyDark(_dmSaved !== null
+      ? _dmSaved === "1"
+      : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false)
+    );
+
+    // On mobile (Brave), a tap on the toggle label fires a document click that
+    // closes the dropdown BEFORE the checkbox change event fires, so we must
+    // stop that propagation on the toggle's parent label and the checkbox itself.
+    const darkToggleLabel = darkToggle?.closest("label") ?? darkToggle?.parentElement;
+    darkToggleLabel?.addEventListener("click",      (e) => e.stopPropagation());
+    darkToggleLabel?.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
+    darkToggle?.addEventListener("touchend",        (e) => e.stopPropagation(), { passive: true });
+
+    // Use both "change" and a "click" fallback for Brave mobile where change
+    // sometimes doesn't fire reliably on the checkbox inside a shadow-like context.
     darkToggle?.addEventListener("change", () => applyDark(darkToggle.checked));
+    darkToggle?.addEventListener("click",  () => {
+      if (darkToggle._clickHandled) { darkToggle._clickHandled = false; return; }
+      darkToggle._clickHandled = true;
+      applyDark(!document.body.classList.contains("dark-mode"));
+      setTimeout(() => { darkToggle._clickHandled = false; }, 50);
+    });
+    // ─────────────────────────────────────────────────────────────────────────
 
     // Profile dropdown
     const toggle   = this.querySelector("#userProfileToggle");

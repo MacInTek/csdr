@@ -102,7 +102,7 @@ class AdminApp extends HTMLElement {
               </a>
               <hr>
               <div class="dark-mode-toggle">
-                <span><i class="fas fa-moon"></i> Dark Mode</span>
+                <span><i id="darkModeIcon" class="fas fa-moon"></i> <span id="darkModeLabel">Dark Mode</span></span>
                 <label class="toggle-switch" aria-label="Toggle dark mode">
                   <input type="checkbox" id="darkModeToggle">
                   <span class="toggle-slider"></span>
@@ -300,6 +300,107 @@ class AdminApp extends HTMLElement {
       this.querySelector("#profileDropdown")?.classList.remove("active");
     });
 
+    // ── Contact Developer ────────────────────────────────────────────────────
+    const DEV_EMAIL = "csltvsdar@gmail.com";
+
+    const contactDevModal   = this.querySelector("#contactDevModal");
+    const contactDevClose   = this.querySelector("#contactDevClose");
+    const contactDevSubject = this.querySelector("#contactDevSubject");
+    const contactDevMessage = this.querySelector("#contactDevMessage");
+    const contactDevCount   = this.querySelector("#contactDevCharCount");
+    const contactDevStatus  = this.querySelector("#contactDevStatus");
+    const contactDevSend    = this.querySelector("#contactDevSend");
+
+    const openContactModal = () => {
+      // Reset form state
+      if (contactDevSubject) contactDevSubject.value = "";
+      if (contactDevMessage) contactDevMessage.value = "";
+      if (contactDevCount)   contactDevCount.textContent = "0 / 5000";
+      if (contactDevStatus)  { contactDevStatus.style.display = "none"; contactDevStatus.textContent = ""; }
+      if (contactDevModal)   contactDevModal.style.display = "flex";
+      // Close the profile dropdown
+      this.querySelector("#userProfileToggle")?.classList.remove("active");
+      this.querySelector("#profileDropdown")?.classList.remove("active");
+      requestAnimationFrame(() => contactDevSubject?.focus());
+    };
+
+    const closeContactModal = () => {
+      if (contactDevModal) contactDevModal.style.display = "none";
+    };
+
+    // Open via dropdown link
+    this.querySelector("#contactDevLink")?.addEventListener("click", () => {
+      if (this.hasAttribute("require-profile")) return;
+      openContactModal();
+    });
+
+    // Close button
+    contactDevClose?.addEventListener("click", closeContactModal);
+
+    // Close on backdrop click
+    contactDevModal?.addEventListener("click", (e) => {
+      if (e.target === contactDevModal) closeContactModal();
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && contactDevModal?.style.display === "flex") closeContactModal();
+    });
+
+    // Character counter for message textarea
+    contactDevMessage?.addEventListener("input", () => {
+      const len = contactDevMessage.value.length;
+      if (contactDevCount) {
+        contactDevCount.textContent = `${len} / 5000`;
+        contactDevCount.style.color = len > 4500 ? "#dc3545" : len > 4000 ? "#fd7e14" : "var(--text-muted,#999)";
+      }
+    });
+
+    // Send — opens Gmail compose via mailto:
+    contactDevSend?.addEventListener("click", () => {
+      const subject = (contactDevSubject?.value || "").trim();
+      const body    = (contactDevMessage?.value || "").trim();
+
+      if (!subject) {
+        contactDevSubject?.focus();
+        showContactStatus("⚠️ Please enter a subject.", "#856404", "#fff3cd");
+        return;
+      }
+      if (!body) {
+        contactDevMessage?.focus();
+        showContactStatus("⚠️ Please enter a message.", "#856404", "#fff3cd");
+        return;
+      }
+
+      // Build mailto URI — Gmail will open with To, Subject, Body pre-filled
+      const mailto = `mailto:${DEV_EMAIL}`
+        + `?subject=${encodeURIComponent(subject)}`
+        + `&body=${encodeURIComponent(body)}`;
+
+      // Open in a new tab so the app stays open
+      const link = document.createElement("a");
+      link.href   = mailto;
+      link.target = "_blank";
+      link.rel    = "noopener noreferrer";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showContactStatus("✅ Your email client has been opened with the message pre-filled. Send it from there.", "#155724", "#d4edda");
+
+      // Auto-close after 3 s
+      setTimeout(closeContactModal, 3000);
+    });
+
+    function showContactStatus(msg, color, bg) {
+      if (!contactDevStatus) return;
+      contactDevStatus.textContent = msg;
+      contactDevStatus.style.color      = color;
+      contactDevStatus.style.background = bg;
+      contactDevStatus.style.display    = "block";
+    }
+    // ─────────────────────────────────────────────────────────────────────────
+
     // Refresh stats after a new account is created
     document.addEventListener("admin-account-created", () => {
       this.querySelector("#adminDashboard")?._loadStats();
@@ -385,16 +486,52 @@ class AdminApp extends HTMLElement {
       });
     });
 
-    // Dark mode toggle
+    // ── Dark mode toggle (Brave-safe: localStorage may be blocked on mobile) ──
     const darkToggle = this.querySelector("#darkModeToggle");
+
+    // Safe storage helpers — Brave blocks localStorage in some mobile contexts
+    const _dmRead  = () => { try { return localStorage.getItem("darkMode"); } catch { return null; } };
+    const _dmWrite = (v) => { try { localStorage.setItem("darkMode", v); } catch { /* blocked */ } };
+
+    const darkModeIcon  = this.querySelector("#darkModeIcon");
+    const darkModeLabel = this.querySelector("#darkModeLabel");
     const applyDark = (on) => {
       document.body.classList.toggle("dark-mode", on);
-      localStorage.setItem("darkMode", on ? "1" : "0");
+      _dmWrite(on ? "1" : "0");
       if (darkToggle) darkToggle.checked = on;
+      if (darkModeIcon)  darkModeIcon.className  = on ? "fas fa-sun"   : "fas fa-moon";
+      if (darkModeLabel) darkModeLabel.textContent = on ? "Light Mode" : "Dark Mode";
     };
-    // Restore saved preference
-    applyDark(localStorage.getItem("darkMode") === "1");
+
+    // Restore saved preference; fall back to OS preference if storage is unavailable
+    const _dmSaved = _dmRead();
+    applyDark(_dmSaved !== null
+      ? _dmSaved === "1"
+      : (window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false)
+    );
+
+    // On mobile (Brave), a tap on the toggle label fires a document click that
+    // closes the dropdown BEFORE the checkbox change event fires, so we must
+    // stop that propagation on the toggle's parent label and the checkbox itself.
+    const darkToggleLabel = darkToggle?.closest("label") ?? darkToggle?.parentElement;
+    darkToggleLabel?.addEventListener("click",      (e) => e.stopPropagation());
+    darkToggleLabel?.addEventListener("touchstart", (e) => e.stopPropagation(), { passive: true });
+    darkToggle?.addEventListener("touchend",        (e) => e.stopPropagation(), { passive: true });
+
+    // Use both "change" and a "click" fallback for Brave mobile where change
+    // sometimes doesn't fire reliably on the checkbox inside a shadow-like context.
     darkToggle?.addEventListener("change", () => applyDark(darkToggle.checked));
+    darkToggle?.addEventListener("click",  () => {
+      // "click" fires before "change" on some mobile browsers — read the NEW
+      // intended state by inverting the current body class, not darkToggle.checked
+      // (which may not have updated yet at this point in the event order).
+      // We guard with a small flag so we don't double-apply when both events fire.
+      if (darkToggle._clickHandled) { darkToggle._clickHandled = false; return; }
+      darkToggle._clickHandled = true;
+      applyDark(!document.body.classList.contains("dark-mode"));
+      setTimeout(() => { darkToggle._clickHandled = false; }, 50);
+    });
+    // ─────────────────────────────────────────────────────────────────────────
 
     // Profile dropdown
     const toggle   = this.querySelector("#userProfileToggle");

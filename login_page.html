@@ -123,6 +123,205 @@
       box-shadow:0 2px 8px rgba(0,0,0,0.2); align-items:center; gap:6px;">
       Install
     </button>
+
+    <!-- Share Button -->
+    <button id="share-btn" title="Share this app" style="
+      display:flex; position:fixed; bottom:16px; right:16px; z-index:9999;
+      background:#0c6d38; color:white; border:none; border-radius:50%;
+      width:48px; height:48px; font-size:20px; cursor:pointer;
+      box-shadow:0 4px 14px rgba(0,0,0,0.25); align-items:center; justify-content:center;
+      transition:transform .2s, box-shadow .2s;">
+      <i class="fas fa-share-alt"></i>
+    </button>
+
+    <!-- Share Modal -->
+    <div id="share-modal" style="
+      display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55);
+      backdrop-filter:blur(4px); z-index:10000;
+      align-items:center; justify-content:center;">
+      <div style="
+        background:#fff; border-radius:20px; padding:28px 24px;
+        width:90%; max-width:400px;
+        box-shadow:0 20px 60px rgba(0,0,0,0.3);
+        animation:shareSlideUp .3s ease;
+        position:relative;">
+
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+          <h3 style="margin:0;color:#0c6d38;font-size:18px;font-family:'Gilroy-Bold',sans-serif;display:flex;align-items:center;gap:8px;">
+            <i class="fas fa-share-alt"></i> Share CSDR
+          </h3>
+          <button id="share-modal-close" style="
+            background:none;border:none;font-size:22px;cursor:pointer;
+            color:#666;line-height:1;padding:4px 8px;border-radius:6px;
+            transition:background .15s;" aria-label="Close">&times;</button>
+        </div>
+
+        <!-- URL display -->
+        <div style="
+          display:flex;align-items:center;gap:8px;
+          background:#f0f9f4;border:1.5px solid #a5d6a7;border-radius:10px;
+          padding:10px 14px;margin-bottom:16px;">
+          <i class="fas fa-link" style="color:#0c6d38;flex-shrink:0;"></i>
+          <span id="share-url-text" style="
+            font-size:13px;color:#333;flex:1;
+            overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+            font-family:monospace;"></span>
+        </div>
+
+        <!-- Action buttons -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+
+          <!-- Copy Link -->
+          <button id="share-copy-btn" style="
+            display:flex;align-items:center;gap:12px;
+            background:#0c6d38;color:white;border:none;border-radius:10px;
+            padding:13px 18px;font-size:14px;font-weight:600;cursor:pointer;
+            transition:all .2s;font-family:'Gilroy-Bold',sans-serif;">
+            <i class="fas fa-copy" style="font-size:16px;"></i>
+            <span id="share-copy-label">Copy Link</span>
+          </button>
+
+          <!-- Native Share (mobile) — shown only if supported -->
+          <button id="share-native-btn" style="
+            display:none;align-items:center;gap:12px;
+            background:#1a73e8;color:white;border:none;border-radius:10px;
+            padding:13px 18px;font-size:14px;font-weight:600;cursor:pointer;
+            transition:all .2s;font-family:'Gilroy-Bold',sans-serif;">
+            <i class="fas fa-share" style="font-size:16px;"></i>
+            Share via…
+          </button>
+
+          <!-- QR Code toggle -->
+          <button id="share-qr-toggle" style="
+            display:flex;align-items:center;gap:12px;
+            background:#f0f9f4;color:#0c6d38;
+            border:1.5px solid #a5d6a7;border-radius:10px;
+            padding:13px 18px;font-size:14px;font-weight:600;cursor:pointer;
+            transition:all .2s;font-family:'Gilroy-Bold',sans-serif;">
+            <i class="fas fa-qrcode" style="font-size:16px;"></i>
+            <span id="share-qr-label">Show QR Code</span>
+          </button>
+        </div>
+
+        <!-- QR Code panel (hidden by default) -->
+        <div id="share-qr-panel" style="display:none;text-align:center;">
+          <div style="
+            display:inline-block;padding:12px;
+            background:#fff;border:2px solid #e0e0e0;border-radius:12px;
+            box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+            <img src="assets/images/qr-code.svg" alt="QR Code for CSDR Login"
+              style="width:180px;height:180px;display:block;" />
+          </div>
+          <p style="margin:10px 0 0;font-size:12px;color:#888;font-family:'Segoe UI',sans-serif;">
+            Scan with your phone camera to open the app
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <style>
+      @keyframes shareSlideUp {
+        from { opacity:0; transform:translateY(24px); }
+        to   { opacity:1; transform:translateY(0); }
+      }
+      #share-btn:hover {
+        transform:scale(1.1);
+        box-shadow:0 6px 20px rgba(0,0,0,0.3);
+      }
+      #share-copy-btn:hover  { background:#095a2e; transform:translateY(-1px); }
+      #share-native-btn:hover { background:#1558b0; transform:translateY(-1px); }
+      #share-qr-toggle:hover { background:#0c6d38; color:white; }
+      #share-modal-close:hover { background:#f0f0f0; }
+    </style>
+
+    <script>
+      (function () {
+        const shareBtn       = document.getElementById("share-btn");
+        const shareModal     = document.getElementById("share-modal");
+        const shareClose     = document.getElementById("share-modal-close");
+        const shareCopyBtn   = document.getElementById("share-copy-btn");
+        const shareCopyLabel = document.getElementById("share-copy-label");
+        const shareNativeBtn = document.getElementById("share-native-btn");
+        const shareQrToggle  = document.getElementById("share-qr-toggle");
+        const shareQrLabel   = document.getElementById("share-qr-label");
+        const shareQrPanel   = document.getElementById("share-qr-panel");
+        const shareUrlText   = document.getElementById("share-url-text");
+
+        // The URL to share — fixed production URL
+        const shareUrl = "https://csdr-dar.web.app";
+        shareUrlText.textContent = shareUrl;
+
+        // Show native share button only if Web Share API is available (mobile)
+        if (navigator.share) {
+          shareNativeBtn.style.display = "flex";
+        }
+
+        // Open modal
+        shareBtn.addEventListener("click", () => {
+          shareModal.style.display = "flex";
+          // Reset QR panel state
+          shareQrPanel.style.display = "none";
+          shareQrLabel.textContent = "Show QR Code";
+          shareCopyLabel.textContent = "Copy Link";
+        });
+
+        // Close modal
+        const closeModal = () => { shareModal.style.display = "none"; };
+        shareClose.addEventListener("click", closeModal);
+        shareModal.addEventListener("click", e => { if (e.target === shareModal) closeModal(); });
+        document.addEventListener("keydown", e => {
+          if (e.key === "Escape" && shareModal.style.display === "flex") closeModal();
+        });
+
+        // Copy link
+        shareCopyBtn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(shareUrl);
+            shareCopyLabel.textContent = "✅ Copied!";
+            shareCopyBtn.style.background = "#155724";
+          } catch {
+            // Fallback for older browsers
+            const ta = document.createElement("textarea");
+            ta.value = shareUrl;
+            ta.style.cssText = "position:fixed;opacity:0;";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            shareCopyLabel.textContent = "✅ Copied!";
+            shareCopyBtn.style.background = "#155724";
+          }
+          setTimeout(() => {
+            shareCopyLabel.textContent = "Copy Link";
+            shareCopyBtn.style.background = "#0c6d38";
+          }, 2500);
+        });
+
+        // Native share (mobile)
+        shareNativeBtn.addEventListener("click", async () => {
+          try {
+            await navigator.share({
+              title: "CSDR — Case Status & Digitalized Records",
+              text: "Access the CSDR system for the Department of Agrarian Reform.",
+              url: shareUrl,
+            });
+          } catch (err) {
+            if (err.name !== "AbortError") console.warn("Share failed:", err);
+          }
+        });
+
+        // Toggle QR code panel
+        shareQrToggle.addEventListener("click", () => {
+          const isVisible = shareQrPanel.style.display !== "none";
+          shareQrPanel.style.display = isVisible ? "none" : "block";
+          shareQrLabel.textContent   = isVisible ? "Show QR Code" : "Hide QR Code";
+          shareQrToggle.style.background = isVisible ? "#f0f9f4" : "#0c6d38";
+          shareQrToggle.style.color      = isVisible ? "#0c6d38" : "white";
+        });
+      })();
+    </script>
     <script>
       let _dp;
       window.addEventListener("beforeinstallprompt", e => {
