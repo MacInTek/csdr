@@ -1,7 +1,7 @@
-# CS-DR (Case Status and Digitalized Records)
+# CSDR (Case Status and Digitalized Records)
 
 ## Overview
-CS-DR is a system designed to manage case statuses and digitalized records efficiently. It helps organize, track, and retrieve case information in a digital format, reducing paperwork and improving workflow.
+CSDR is a system designed to manage case statuses and digitalized records efficiently in department of agrarian reform (DAR). It helps organize, track, and retrieve case information in a digital format, reducing paperwork and improving workflow.
 
 ## Features
 - Store and manage case records digitally
