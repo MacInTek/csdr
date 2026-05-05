@@ -1,0 +1,338 @@
+.admin-badge {
+    background: #ffd700;
+    color: #084b28;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-left: 6px;
+    vertical-align: middle;
+    letter-spacing: 0.5px;
+}
+
+.admin-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.stat-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 24px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+    border-left: 5px solid #0c6d38;
+}
+
+.stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.11);
+}
+
+.stat-card.pending-card { border-left-color: #f39c12; }
+.stat-card.resolved-card { border-left-color: #27ae60; }
+
+.stat-icon {
+    font-size: 32px;
+    color: #0c6d38;
+    width: 48px;
+    text-align: center;
+}
+
+.pending-card .stat-icon { color: #f39c12; }
+.resolved-card .stat-icon { color: #27ae60; }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--stat-number, #2c3e50);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: var(--text-secondary, #7f8c8d);
+    font-weight: 500;
+}
+
+/* User Management Table */
+.user-manage-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: var(--shadow-card);
+    transition: background-color 0.3s;
+}
+
+.user-manage-card h2 {
+    color: #0c6d38;
+    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.user-table th {
+    background: #0c6d38;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.user-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--table-border, #eee);
+    vertical-align: middle;
+    color: var(--text-primary);
+}
+
+.user-table tbody tr:hover {
+    background: var(--table-hover);
+}
+
+.role-badge {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.role-admin { background: #ffeaa7; color: #6c5ce7; }
+.role-personnel { background: #dfe6e9; color: #2d3436; }
+
+.status-badge {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-active { background: #d4edda; color: #155724; }
+.status-pending { background: #fff3cd; color: #856404; }
+.status-inactive { background: #f8d7da; color: #721c24; }
+
+.action-btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+    margin-right: 4px;
+}
+
+.action-btn:hover { opacity: 0.8; }
+.btn-approve { background: #0c6d38; color: white; }
+.btn-reject  { background: #e74c3c; color: white; }
+.btn-toggle  { background: #f39c12; color: white; }
+
+@media (max-width: 768px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Admin Approvals Styles */
+.admin-approvals {
+    padding: 20px;
+}
+
+.approvals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.approvals-header h2 {
+    margin: 0;
+    color: #084b28;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.loading-text {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 40px;
+}
+
+.approval-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-card);
+    border-left: 4px solid #0c6d38;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+.approval-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+.approval-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.email-badge {
+    background: #e8f5e8;
+    color: #0c6d38;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.created-date {
+    color: #666;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.approval-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 12px;
+    border-radius: 6px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.icon-empty {
+    font-size: 48px;
+    color: #0c6d38;
+    margin-bottom: 16px;
+    opacity: 0.7;
+}
+
+.text-muted {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+    margin: 0 0 16px 0;
+    color: #084b28;
+    font-size: 20px;
+}
+
+.modal-content p {
+    margin: 0 0 24px 0;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+}
+
+.modal-btn-secondary {
+    background: #f8f9fa;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.modal-btn-primary,
+.modal-btn-success {
+    background: #0c6d38;
+    color: white;
+}
+
+.modal-btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+/* Sidebar pending badge */
+.sidebar-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #e74c3c;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    margin-left: 6px;
+    vertical-align: middle;
+}

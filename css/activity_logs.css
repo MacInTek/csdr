@@ -1,0 +1,137 @@
+/* Activity Logs Styles */
+
+.activity-logs {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.logs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logs-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--text-dark);
+}
+
+.logs-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.logs-filters .form-control {
+  margin: 0;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logs-table thead {
+  background: var(--light-bg);
+}
+
+.logs-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+  font-size: 0.95rem;
+}
+
+.logs-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.logs-table tbody tr:hover {
+  background: var(--light-bg);
+}
+
+.log-row {
+  transition: background 0.2s;
+}
+
+.timestamp {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.badge-action {
+  background: #e0e7ff;
+  color: #3730a3;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.details {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+details {
+  cursor: pointer;
+}
+
+details > summary {
+  color: var(--primary-color);
+  text-decoration: underline;
+  outline: none;
+}
+
+details > summary::-webkit-details-marker {
+  margin-right: 0.5rem;
+}
+
+details > pre {
+  background: var(--light-bg);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.8rem;
+  margin: 0.5rem 0 0 0;
+  max-width: 400px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .activity-logs {
+    padding: 1rem;
+  }
+
+  .logs-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .logs-table {
+    font-size: 0.85rem;
+  }
+
+  .logs-table th,
+  .logs-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  details > pre {
+    max-width: 300px;
+  }
+}

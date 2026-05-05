@@ -1,0 +1,89 @@
+{
+    "name": "CSDR - Case Status & Digitalized Records",
+    "short_name": "CSDR",
+    "description": "Case Management System",
+    "start_url": "/index.html",
+    "scope": "/",
+    "background_color": "#0c6d38",
+    "theme_color": "#0c6d38",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "dir": "ltr",
+    "lang": "en",
+    "categories": ["productivity", "utilities", "legal"],
+    "prefer_related_applications": false,
+
+    "icons": [
+        {
+            "src": "assets/icons/csltiv-logo192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "assets/icons/csltiv-logo192x192.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "assets/icons/csltiv-logo192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "assets/icons/csltiv-logo512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+
+    "screenshots": [
+        {
+            "src": "assets/screenshots/screenshot-mobile.png",
+            "sizes": "640x320",
+            "type": "image/png",
+            "form_factor": "narrow",
+            "label": "CSLTV Mobile View"
+        },
+        {
+            "src": "assets/screenshots/screenshot-desktop.png",
+            "sizes": "2160x1440",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "CSLTV Desktop View"
+        }
+    ],
+
+    "shortcuts": [
+        {
+            "name": "Dashboard",
+            "short_name": "Dashboard",
+            "description": "Go to dashboard",
+            "url": "/home",
+            "icons": [
+                {
+                    "src": "assets/icons/csltiv-logo192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        },
+        {
+            "name": "Case Management",
+            "short_name": "Cases",
+            "description": "Manage cases",
+            "url": "/case-manage",
+            "icons": [
+                {
+                    "src": "assets/icons/csltiv-logo192x192.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+
+    "related_applications": [],
+    "iarc_rating_id": ""
+}

@@ -1,0 +1,11 @@
+{
+    "liveServer.settings.host": "127.0.0.1",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "fiveServer.browser": [
+
+    ],
+    "workbench.externalBrowser": "chrome",
+    "CodeGPT.apiKey": "Anthropic",
+    "postman.settings.dotenv-detection-notification-visibility": false,
+    "kiroAgent.configureMCP": "Disabled"
+}

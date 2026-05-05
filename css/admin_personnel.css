@@ -1,0 +1,107 @@
+/* Admin Personnel Manager Styles */
+
+.admin-personnel-manager {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.manager-header h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  color: var(--text-dark);
+}
+
+.manager-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.manager-controls .form-control {
+  margin: 0;
+}
+
+.personnel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.personnel-table thead {
+  background: var(--light-bg);
+}
+
+.personnel-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.personnel-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.personnel-table tbody tr:hover {
+  background: var(--light-bg);
+  cursor: pointer;
+}
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 1rem;
+  transition: all 0.2s;
+  margin-right: 0.5rem;
+}
+
+.btn-edit {
+  color: var(--primary-color);
+}
+
+.btn-edit:hover {
+  color: #1d4ed8;
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  color: var(--danger-color);
+}
+
+.btn-delete:hover {
+  color: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Response for table overflow */
+@media (max-width: 768px) {
+  .admin-personnel-manager {
+    padding: 1rem;
+  }
+
+  .manager-controls {
+    grid-template-columns: 1fr;
+  }
+
+  .personnel-table {
+    font-size: 0.85rem;
+  }
+
+  .personnel-table th,
+  .personnel-table td {
+    padding: 0.75rem 0.5rem;
+  }
+}

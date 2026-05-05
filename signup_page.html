@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | CSLTVS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/sign-up.css">
+    <link rel="icon" type="image/png" href="assets/logo/CSLTIV-logo.png">
+    <script defer src="scripts/sw-update-handler.js"></script>
+    <script type="module">
+        // Signup is disabled — redirect to login
+        window.location.replace("login_page.html");
+    </script>
+    
+    <!-- Installment PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/darab_logo192x192.png">
+</head>
+
+<body>
+    
+    <!-- Success Modal -->
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-envelope-circle-check"></i>
+            </div>
+            <h3 class="modal-title">Account Created Successfully!</h3>
+            <p class="modal-message">
+                Please check your email to verify your account before logging in.
+            </p>
+            <button class="modal-btn" id="modalOkBtn">Got it!</button>
+        </div>
+    </div>
+
+    <div class="login-container">
+        
+        <div class="logo-container" id="installBtn">
+            <img src="assets/logo/CSLTIV-logo.png" alt="Darab Logo" class="logo">
+            <h1 class="app-name">Case Status and Land Title <br>Verification System for the</h1>
+            <h1 class="darab-name">Department of Agrarian Reform</h1>
+        </div>
+        
+        
+        <div class="signup-form">
+            <h2 class="form-title text-center">Create an Account</h2>
+            
+            <div class="divider"></div>
+            
+            <form>
+                <div id="login-valid"></div>
+
+                <!-- <div class="form-floating mb-3">
+                    <input type="name" class="form-control" id="name" placeholder="John Doe">
+                    <label for="name">Username</label>
+                    <span class="email-toggle" id="toggleName">
+                        <i class="bi-person-circle me-2"></i>
+                    </span>  
+                </div> -->
+
+                <!-- <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="position" placeholder="Position">
+                    <label for="position">Darab Position</label>
+                    <span class="position-toggle" id="togglePosition">
+                        <i class="fas fa-user-tag me-2"></i>
+                    </span>
+                </div> -->
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="email">Email Address</label>
+                    <span class="email-toggle" id="toggleEmail">
+                        <i class="fas fa-envelope me-2"></i>
+                    </span>
+                    
+                </div>
+                
+               
+                
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password"></i>Password</label>
+                    <span class="password-toggle" id="togglePassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+
+                 <!-- Password Strength Indicator
+                <div id="strengthContainer" style="margin-bottom: 12px; display: none;">
+                    <div style="display: flex; gap: 5px; margin-bottom: 6px;">
+                        <div id="strengthBar1" style="height: 5px; background-color: #e0e0e0; border-radius: 3px; flex: 1; transition: background-color 0.3s ease;"></div>
+                        <div id="strengthBar2" style="height: 5px; background-color: #e0e0e0; border-radius: 3px; flex: 1; transition: background-color 0.3s ease;"></div>
+                        <div id="strengthBar3" style="height: 5px; background-color: #e0e0e0; border-radius: 3px; flex: 1; transition: background-color 0.3s ease;"></div>
+                        <div id="strengthBar4" style="height: 5px; background-color: #e0e0e0; border-radius: 3px; flex: 1; transition: background-color 0.3s ease;"></div>
+                    </div>
+                    <p id="strengthText" style="font-size: 12px; font-weight: 600; margin: 0; color: #666;"></p>
+                </div> -->
+
+
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="confirm-password" placeholder="Confirm password">
+                    <label for="confirm-password"></i>Confirm password</label>
+                    <span class="password-toggle" id="toggleConfirmPassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+                
+                
+                <button type="submit" id="submit-btn" class="btn btn-signup w-100">Sign up</button>
+                
+    
+
+                <div class="additional-options">
+                    <span>Already have an Account? <a href="login_page.html" class="text-decoration-none fw-bold">Login</a></span>
+                </div>
+
+                <div class="divider"></div>
+            </form>
+            
+            
+            
+            <!-- <div class="social-login">
+                <p class="text-center mb-3 ">Or Sign up with</p>
+                <div class="row g-2 ">
+                    <div class="col-6">
+                        <div class="social-btn">
+                            <i class="fab fa-google text-danger"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="social-btn">
+                            <i class="fab fa-facebook-f text-primary"></i>
+                        </div>
+                    </div>   
+                    
+                </div>
+            </div> -->
+        </div>
+        
+        <div class="footer">
+            <p id="darab-location">Located in NIA, Aranghita St., Brgy. Nursery, <br> Masbate City</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+
+    <!-- PWA Install Button -->
+    <button id="pwa-install-btn" title="Install App" style="
+      display:none; position:fixed; top:12px; right:12px; z-index:9999;
+      background:#0c6d38; color:white; border:none; border-radius:8px;
+      padding:7px 12px; font-size:12px; font-weight:600; cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.2); align-items:center; gap:6px;">
+      Install
+    </button>
+    <script>
+      let _dp;
+      window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault(); _dp = e;
+        const btn = document.getElementById("pwa-install-btn");
+        btn.style.display = "flex";
+      });
+      document.getElementById("pwa-install-btn").addEventListener("click", async () => {
+        if (!_dp) return;
+        _dp.prompt();
+        const { outcome } = await _dp.userChoice;
+        if (outcome === "accepted") document.getElementById("pwa-install-btn").style.display = "none";
+        _dp = null;
+      });
+      window.addEventListener("appinstalled", () => {
+        document.getElementById("pwa-install-btn").style.display = "none";
+      });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | CSDR</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="icon" type="image/png" href="assets/logo/CSLTIV-logo.png">
+    <script defer src="scripts/sw-update-handler.js"></script>
+
+    <!-- Installment PWA Support -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/darab_logo192x192.png">
+    <script type="module">
+        import { protectRoute } from "./scripts/routeProtection.js";
+        // Redirect already-logged-in users to app
+        protectRoute("auth", "app.html");
+    </script>
+    <script type="module" src="scripts/loginAuth.js" defer></script>
+</head>
+
+<body>
+    
+    <!-- Email Verification Modal -->
+    <div class="modal-overlay" id="verificationModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <h3 class="modal-title">Email Not Verified</h3>
+            <p class="modal-message" id="modalMessage">
+                Please verify your email before logging in. Check your inbox for the verification link.
+            </p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" id="resendBtn">Resend Email</button>
+                <button class="modal-btn modal-btn-secondary" id="modalCloseBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="login-container">
+
+        <div class="logo-container" id="installBtn">
+            <img src="assets/logo/CSLTIV-logo.png" alt="Darab Logo" class="logo">
+            <h1 class="app-name">Case Status and <br> Digitalize Record for</h1>
+            <h1 class="darab-name">Department of Agrarian Reform</h1>
+        </div>
+        
+        <div class="login-form">
+            <h2 class="form-title text-center">Login your Account</h2>
+            
+            <div class="divider"></div>
+            
+            <form>
+                
+                <div id="login-valid"></div>
+
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                    <label for="email">Email Address</label>
+                    <span class="email-toggle" id="toggleEmail">
+                        <i class="fas fa-envelope me-2"></i>
+                    </span>
+                    
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                    <label for="password"></i>Password</label>
+                    <span class="password-toggle" id="togglePassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+
+                
+                <button id="submit-btn" type="submit" class="btn btn-login w-100">Login</button>
+                
+
+            </form>
+            
+            <div class="divider"></div>
+            
+            <!-- <div class="social-login">
+
+                <p class="text-center mb-3 ">Or login with</p>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="col-6" id="google-btn">
+                        <div class="social-btn">
+                            <i class="fab fa-google text-danger"></i>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="social-btn">
+                            <i class="fab fa-facebook-f text-primary"></i>
+                        </div>
+                    </div>   
+                    
+                </div>
+            </div> -->
+            
+        </div>
+        
+        <div class="footer">
+            <p id="darab-location">Located in NIA, Aranghita St., Brgy. Nursery,<br> Masbate City</p>
+            <!-- <span id="dev">&copy; 2026 Developed by Mac Ojie Cantuba</span> -->
+
+        </div>
+    </div>
+    <script type="module" src="./scripts/google-auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="script.js"></script>
+
+    <!-- PWA Install Button -->
+    <button id="pwa-install-btn" title="Install App" style="
+      display:none; position:fixed; top:12px; right:12px; z-index:9999;
+      background:#0c6d38; color:white; border:none; border-radius:8px;
+      padding:7px 12px; font-size:12px; font-weight:600; cursor:pointer;
+      box-shadow:0 2px 8px rgba(0,0,0,0.2); align-items:center; gap:6px;">
+      Install
+    </button>
+    <script>
+      let _dp;
+      window.addEventListener("beforeinstallprompt", e => {
+        e.preventDefault(); _dp = e;
+        const btn = document.getElementById("pwa-install-btn");
+        btn.style.display = "flex";
+      });
+      document.getElementById("pwa-install-btn").addEventListener("click", async () => {
+        if (!_dp) return;
+        _dp.prompt();
+        const { outcome } = await _dp.userChoice;
+        if (outcome === "accepted") document.getElementById("pwa-install-btn").style.display = "none";
+        _dp = null;
+      });
+      window.addEventListener("appinstalled", () => {
+        document.getElementById("pwa-install-btn").style.display = "none";
+      });
+    </script>
+</body>
+</html>

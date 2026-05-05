@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "firebase": "^12.6.0",
+    "firebase-admin": "^13.8.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "csltiv",
+  "version": "1.0.0",
+  "description": "csltiv is a web application designed to provide a simple and interactive user experience. The application features a clean layout with a header, navigation links, a content container, and a footer.",
+  "main": "script.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,582 @@
+
+
+:root {
+    --primary-green: #0c6d38;
+    --light-green: #e8f5ee;
+    --dark-green: #084b28;
+    --gilroy-font: 'Gilroy-Bold', sans-serif;
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    scrollbar-width: 2px;
+}
+
+/* Email Verification Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s ease;
+    border: 3px solid var(--primary-green);
+}
+
+.modal-icon {
+    font-size: 4rem;
+    color: #f39c12;
+    margin-bottom: 1rem;
+    animation: scaleIn 0.5s ease 0.2s both;
+}
+
+.modal-title {
+    color: var(--primary-green);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: var(--gilroy-font);
+    font-size: 1.5rem;
+}
+
+.modal-message {
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.modal-btn {
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: var(--gilroy-font);
+}
+
+.modal-btn-primary {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.modal-btn-primary:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(12, 109, 56, 0.3);
+}
+
+.modal-btn-secondary {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.modal-btn-secondary:hover {
+    background-color: #d0d0d0;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+body {
+    font-family: 'Gilroy-Bold', sans-serif;
+    background: linear-gradient(135deg, var(--primary-green) 0%, #1a936f 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-attachment: fixed;
+}
+
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    /* background-image: url('../assets/images/sunflowers.png');
+    background-size: cover;
+    background-position: center; */
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.app-name {
+    font-size: 2rem;
+    font-family: var(--gilroy-font);
+    color: white;
+    font-weight: 900;
+    font-style: italic;
+}
+
+.darab-name {
+    font-size: 1.5rem;
+    font-family: var(--gilroy-font);
+    color: yellow;
+    font-weight: 900;
+    font-style: italic;
+}
+
+
+.logo {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 30px;
+    z-index: 10;
+}
+
+.login-form {
+    background-color: var(--light-green);
+    border: 3px solid var(--primary-green);
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    padding: 2.5rem;
+    width: 100%;
+    max-width: 450px;
+    transition: all 0.3s ease;
+    color: black;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+
+#login-valid{
+    color: red;
+    margin-bottom: 25px;
+    display: none;
+    background: #ffdddd;
+    border-left: 5px solid red;
+    color: #a40000;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    animation: fadeSlide 0.3s ease-out;
+    display: none;
+
+}
+
+
+ @keyframes fadeSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.form-title {
+    color: var(--dark-green);
+    font-weight: bolder;
+    margin-bottom: 1.2rem;
+    font-size: 22px;
+    font-family: var(--gilroy-font);
+}
+
+
+.divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent 0%, var(--primary-green) 50%, transparent 100%);
+    margin: 1.5rem 0;
+}
+
+
+.form-floating>.form-control {
+    border-radius: 10px;
+    
+}
+
+.form-floating>label {
+    padding-left: 12px;
+    color: #6c757d;
+    
+}
+
+.btn-login {
+    background-color: var(--primary-green);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: all 1s;
+}
+
+.btn-login:hover {
+    background-color: transparent;
+    transform: translateY(2px);
+    border: 2px solid var(--dark-green);
+    color: var(--dark-green);
+}
+
+.email-toggle {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+}
+
+
+.additional-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    text-align: center;
+    font-family: var(--gilroy-font);
+}
+
+
+/* .social-login {
+    margin: 1.5rem 0;
+}
+
+.social-btn {
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+} */
+
+/* .social-btn:hover {
+    background-color: #f8f9fa;
+    border-color: #ccc;
+} */
+
+.footer {
+    margin-top: 2rem;
+    color: white;
+    text-align: center;
+    font-size: 0.9rem;
+    font-family: var(--gilroy-font);
+}
+
+.footer #darab-location{
+    color: white;
+    font-size: 15px;
+    font-style: oblique;
+}
+
+
+
+@media (max-width: 576px) {
+       
+    html, body {
+        height: 100%;
+        overflow: auto;               /* ensure scroll exists on this element */
+    }
+
+    /* Firefox */
+    html, body {
+        scrollbar-width: none;        /* hides scrollbar for Firefox */
+        -ms-overflow-style: none;     /* old IE/Edge */
+    }
+
+    
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        background: transparent;
+    }
+
+    .modal-content {
+        padding: 2rem;
+        max-width: 90%;
+    }
+
+    .modal-icon {
+        font-size: 3rem;
+    }
+
+    .modal-title {
+        font-size: 1.3rem;
+    }
+
+    .modal-message {
+        font-size: 0.9rem;
+    }
+
+    .modal-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    .login-form {
+        max-width: 350px;
+        padding: 2.5rem;
+    }
+
+    .form-floating>.form-control {
+        height: 55px;
+        padding: 15px 18px;
+    }
+
+    .btn-login {
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    .additional-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .form-title {
+        font-size: 19px;
+    }
+    
+    .logo {
+        height: 100px;
+        width: 100px;
+        margin-bottom: 12px;
+    }
+
+    #login-valid{
+        font-size: small;
+    }
+
+    .app-name {
+        font-size: 1.5rem;
+        font-weight: 900;
+    }
+
+    .darab-name{
+        font-size: 1rem;
+        font-weight: 900;
+    }
+
+    .footer #darab-location{
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 398px) {
+  /* make sure html & body can fill viewport and be targetable */
+  html, body {
+    height: 100%;
+    overflow: auto;               /* ensure scroll exists on this element */
+  }
+
+  /* Firefox */
+  html, body {
+    scrollbar-width: none;        /* hides scrollbar for Firefox */
+    -ms-overflow-style: none;     /* old IE/Edge */
+  }
+
+  /* WebKit-based browsers (Chrome, Edge, Safari) */
+  /* Use width/height 0 instead of display:none for better support */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+
+
+  .login-form { 
+        max-width: 250px; 
+        padding: 2rem; 
+    }
+
+  .form-title { 
+        font-size: 18px; 
+        font-display: fallback; 
+ }
+
+
+  .form-floating > label { 
+        font-size: 14px; 
+    }
+
+    .logo-container {
+        padding-top: 10px;
+    }
+
+  .logo {
+        height: 90px; 
+        width: 90px; 
+    }
+
+
+    #login-valid { 
+        font-size: 9.5px; 
+    }
+
+
+    .additional-options {
+        font-size: 0.7rem;
+    }
+
+    .form-title {
+        font-size: 18px;
+    }
+
+    .form-floating>label {
+        font-size: 14px;
+    }
+
+    .app-name {
+        font-size: 1rem;
+        font-weight: 900;
+    }
+
+
+    .darab-name{
+        font-size: .7rem;
+        font-weight: 900;
+    }
+
+    .footer #darab-location{
+        font-size: 10px;
+    }
+}
+
+
+@media (max-width: 298px) {
+  /* make sure html & body can fill viewport and be targetable */
+  html, body {
+    height: 100%;
+    overflow: auto;               /* ensure scroll exists on this element */
+  }
+
+  /* Firefox */
+  html, body {
+    scrollbar-width: none;        /* hides scrollbar for Firefox */
+    -ms-overflow-style: none;     /* old IE/Edge */
+  }
+
+  /* WebKit-based browsers (Chrome, Edge, Safari) */
+  /* Use width/height 0 instead of display:none for better support */
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    background: transparent;
+  }
+
+
+  /* rest of your rules... */
+  .login-form { max-width: 250px; padding: 2rem; }
+  .form-title { font-size: 18px; font-display: fallback; }
+  .form-floating > label { font-size: 14px; }
+  .logo { 
+    height: 50px;
+    width: 50px; 
+    margin: 9px; 
+    }
+  #login-valid { font-size: small; }
+
+
+    .form-title {
+            font-size: 18px;
+    }
+
+    .form-floating>label {
+        font-size: 14px;
+    }
+
+    .app-name {
+        font-size: 10px;
+        font-weight: 900;
+    }
+
+     .darab-name{
+        font-size: 8px;
+        font-weight: 900;
+    }
+
+    .footer #darab-location{
+        font-size: 8px;
+    }
+
+    .additional-options {
+        font-size: 0.6rem;
+    }
+}
+
+
+
