@@ -12,7 +12,7 @@
     }
   ],
   "hosting": {
-    "site": "csltvs",
+    "site": "csdr",
     "public": ".",
     "ignore": [
       "firebase.json",
