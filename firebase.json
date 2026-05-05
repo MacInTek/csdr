@@ -12,7 +12,7 @@
     }
   ],
   "hosting": {
-    "site": "csdr",
+    "site": "csdr-dar",
     "public": ".",
     "ignore": [
       "firebase.json",
