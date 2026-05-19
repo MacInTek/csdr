@@ -15,10 +15,10 @@
  *   - The cloud name is wrong
  */
 
-export const CLOUDINARY_CLOUD_NAME = "dogzc58b2";
+export const CLOUDINARY_CLOUD_NAME = "";
 
 // Must match an UNSIGNED upload preset in your Cloudinary dashboard
-export const CLOUDINARY_UPLOAD_PRESET = "csltiv_unsigned";
+export const CLOUDINARY_UPLOAD_PRESET = "";
 
 export const CLOUDINARY_UPLOAD_URL =
   `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`;
